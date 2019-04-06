@@ -359,6 +359,7 @@ const fdata = {
 
 class FunctionalArea extends React.Component {
   render() {
+    // console.log()
     return (
       <Col xs={12} md={3} className="hide-on-small-and-med">
         <div className="functional-area-container">

@@ -74,7 +74,7 @@ const Footer = props => {
             Copyright &copy; 2019. HireXL All rights reserved
           </div>
           <div className="">
-            Designmed and Developed by{" "}
+            Designed and Developed by{" "}
             <a href="https://github.com/avchhikara">Avnish</a>
           </div>
         </Row>
