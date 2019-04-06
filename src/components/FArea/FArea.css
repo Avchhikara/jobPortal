@@ -1,10 +1,13 @@
 .functional-area-container {
   margin-top: 10px;
   border: 1px solid rgb(223, 221, 221);
-  padding: 15px 10px 10px 10px;
+  padding: 15px 10px 15px 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 200, 0.2);
   position: sticky;
   top: 10px;
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 98vh;
 }
 
 .functional-area__list {

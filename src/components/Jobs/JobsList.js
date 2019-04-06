@@ -15,6 +15,48 @@ import { Card, CardText, CardTitle, CardSubtitle } from "reactstrap";
 //   //   console.log(ele);
 // };
 
+//Making a temporary stack
+class Stack {
+  constructor() {
+    this.arr = [];
+  }
+  push(ele) {
+    this.arr.push(ele.toString());
+  }
+  pop() {
+    if (this.arr.length > 0) {
+      const ret = this.arr[this.arr.length - 1];
+      this.arr[this.arr.length - 1] = "";
+      return ret;
+    }
+  }
+  seek() {
+    if (this.arr.length > 0) return this.arr[this.arr.length - 1];
+  }
+}
+
+const parseDesc = desc => {
+  const stack = new Stack();
+  let newDesc = "";
+  desc = desc.split("");
+  for (let i in desc) {
+    // console.log(stack.seek());
+    if (desc[i] === "<") {
+      stack.push(desc[i]);
+    } else if (desc[i] === ">") {
+      stack.pop();
+    } else {
+      if (stack.seek() === "<" && i === "/") {
+        newDesc += " ";
+      } else if (stack.seek() !== "<") {
+        newDesc += desc[i];
+      }
+    }
+  }
+
+  return newDesc;
+};
+
 const JobsList = props => {
   // console.log(props);
   const posted = new Date(props.job.createdAt).getTime();
@@ -45,7 +87,7 @@ const JobsList = props => {
           //       props.job.job_description.substring(0, 10000)
           //     );
           //   }, 10)
-          props.job.job_description.substring(0, 350)}
+          parseDesc(props.job.job_description).substring(0, 350) + "....."}
         </span>
       </CardText>
       <hr />
