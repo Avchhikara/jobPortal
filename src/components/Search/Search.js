@@ -2,6 +2,9 @@ import React from "react";
 
 import "./Search.css";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+
 import { Form, Input, Row, Col, Button } from "reactstrap";
 
 class Search extends React.Component {
@@ -45,7 +48,7 @@ class Search extends React.Component {
             </Col>
             <Col xs={12} sm={12} md={1}>
               <Button color="primary" block>
-                S
+                <FontAwesomeIcon icon={faSearch} />
               </Button>
             </Col>
           </Row>
