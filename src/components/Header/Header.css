@@ -1,0 +1,9 @@
+.header__nav-brand {
+  color: red !important;
+  font-weight: bold;
+  font-style: italic;
+}
+
+a.nav-link:hover {
+  color: rgb(250, 89, 89) !important;
+}

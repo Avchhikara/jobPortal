@@ -1,0 +1,42 @@
+.footer-container {
+  margin-top: 20px;
+}
+
+.footer-container div.jumbotron {
+  margin-bottom: 0;
+  background-color: #2b303f !important;
+  border-radius: 0;
+  padding: 20px;
+  color: #eee;
+}
+
+.footer-container div.jumbotron h3 {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.footer-container address {
+  margin-top: 20px;
+}
+
+.footer-container ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.9em;
+  margin-top: 15px;
+}
+
+.footer-container a {
+  color: white;
+}
+
+.footer-container a:hover {
+  color: white;
+}
+
+.footer-container .bottom {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+}

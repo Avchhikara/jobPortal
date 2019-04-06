@@ -1,0 +1,33 @@
+.functional-area-container {
+  margin-top: 10px;
+  border: 1px solid rgb(223, 221, 221);
+  padding: 15px 10px 10px 10px;
+}
+
+.functional-area__list {
+  padding-left: 8px;
+}
+
+.functional-area__list-item {
+  margin-top: 15px;
+}
+
+.functional-area__list-item:hover {
+  color: red;
+  cursor: pointer;
+}
+
+.functional-area__list-open {
+  padding-left: 8px;
+  margin-bottom: 3px;
+}
+
+.functional-area__list-open__item {
+  display: block;
+  list-style: none;
+}
+
+.functional-area__list-open__item:hover {
+  color: red;
+  cursor: pointer;
+}

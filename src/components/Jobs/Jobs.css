@@ -1,0 +1,40 @@
+.jobs-container {
+  margin-top: 10px;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+}
+
+.jobs-list {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.jobs-list:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  cursor: default;
+}
+
+.jobs-container .text-glow-down {
+  color: rgb(95, 94, 94);
+  margin-top: 10px;
+}
+
+.jobs-container .jobs-list {
+  margin-bottom: 10px;
+}
+
+.card-text__key-area,
+.card-text__desc {
+  color: rgrgb(206, 206, 206);
+}
+
+.jobs-list__footer,
+.jobs-list__sub {
+  font-size: 0.9em;
+}
+
+.jobs-list .card-title {
+  font-size: 1.2em;
+}
+
+ul.pagination {
+  justify-content: center;
+}
