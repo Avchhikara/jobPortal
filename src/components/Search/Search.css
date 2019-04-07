@@ -1,6 +1,10 @@
 .search-container {
   margin-top: 10px;
-  background-color: rgb(104, 104, 255);
+  background-image: linear-gradient(
+    to right,
+    rgb(20, 20, 243) 10%,
+    rgb(104, 104, 255)
+  );
   padding: 30px 15px;
   border-radius: 10px;
 }

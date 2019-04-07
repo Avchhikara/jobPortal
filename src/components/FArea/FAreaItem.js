@@ -37,7 +37,17 @@ class FAreaItem extends React.Component {
           <ul className="functional-area__list-open">
             {this.props.sub.map((sname, index) => {
               return (
-                <li className="functional-area__list-open__item" key={index}>
+                <li
+                  className="functional-area__list-open__item"
+                  key={index}
+                  onClick={() => {
+                    this.props.history.push(
+                      `/?rdf=${sname.name}&location=&salary=&experience=`
+                    );
+                    this.props.toggleJobs();
+                    // console.log(this.props);
+                  }}
+                >
                   {sname.name}
                 </li>
               );

@@ -366,7 +366,12 @@ class FunctionalArea extends React.Component {
           <h6>Functional Area</h6>
           {fdata.functionalarea.map((farea, i) => {
             return (
-              <FAreaItem name={farea.name} key={i} sub={farea.subCategory} />
+              <FAreaItem
+                name={farea.name}
+                key={i}
+                sub={farea.subCategory}
+                {...this.props}
+              />
             );
           })}
         </div>

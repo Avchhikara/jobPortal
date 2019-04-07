@@ -11,8 +11,32 @@ class Jobs extends React.Component {
       jobs: {
         end: 10
       },
-      toggleList: true
+      toggleList: true,
+      search: false
     };
+  }
+
+  componentWillUpdate() {
+    this.checkSearch();
+  }
+
+  componentWillMount() {
+    let sstr = this.props.location.search;
+    if (sstr.length !== 0) {
+      this.setState({ search: true });
+    }
+  }
+
+  componentDidMount() {
+    let sstr = this.props.location.search;
+    if (sstr.length === 0) {
+      this.setState({ search: false });
+    } else {
+      this.setState({ search: true });
+
+      this.checkSearch();
+    }
+    // console.log("called");
   }
 
   toggleList = n => {
@@ -23,13 +47,78 @@ class Jobs extends React.Component {
     }));
   };
 
+  checkSearch = () => {
+    let sstr = this.props.location.search;
+    sstr = sstr.substring(1, sstr.length);
+
+    if (sstr !== "") {
+      //Now, making an sstr object
+      const newSstr = {};
+      sstr = sstr.split("&");
+
+      for (let str of sstr) {
+        str = str.split("=");
+        newSstr[str[0]] = str[1] ? str[1].toLowerCase() : "";
+      }
+
+      //Now, first sorting according to rdf
+      let sjobs = jobsRaw.jobs;
+      if (newSstr["rdf"]) {
+        sjobs = jobsRaw.jobs.filter(job => {
+          return job.functional_area.toLowerCase().includes(newSstr["rdf"]);
+        });
+      }
+      if (newSstr["location"] && newSstr["location"] !== "") {
+        sjobs = sjobs.filter(job => {
+          return job.job_location.toLowerCase().includes(newSstr["location"]);
+        });
+      }
+
+      if (newSstr["salary"] && newSstr["salary"] !== "") {
+        sjobs = sjobs.filter(job => {
+          if (
+            job.max_salary >=
+              Math.floor(parseInt(newSstr["salary"]) / 100000) &&
+            Math.floor(parseInt(newSstr["salary"]) / 100000) >= job.min_salary
+          ) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+      }
+
+      if (newSstr["experience"] && newSstr["experience"] !== "") {
+        sjobs = sjobs.filter(job => {
+          if (
+            parseInt(newSstr["experience"]) >= job.min_experience &&
+            parseInt(newSstr["experience"]) <= job.max_experience
+          ) {
+            return true;
+          }
+          return false;
+        });
+      }
+      // this.setState({ search: true });
+
+      //Now, just rendering the jobs
+      return sjobs;
+    } else {
+      //Setting search to false
+      // this.setState({ search: false });
+
+      return [];
+    }
+  };
+
   render() {
     // console.log(this.state.jobs.end);
     return (
       <Col xs={12} lg={9} className="jobs-container">
-        {this.state.toggleList
+        {this.state.toggleList && !this.state.search
           ? jobsRaw.jobs.map((job, index) => {
               //   console.log(index);
+              // console.log("called");
               if (
                 index < this.state.jobs.end &&
                 index >= this.state.jobs.end - 10
@@ -39,54 +128,69 @@ class Jobs extends React.Component {
                 return null;
               }
             })
-          : "Loading"}
+          : ""}
 
-        <Pagination>
-          <PaginationItem
-            onClick={() => {
-              if (this.state.jobs.end > 10) {
-                this.setState(prev => ({ jobs: { end: prev.jobs.end - 10 } }));
-              }
-            }}
-            disabled={this.state.jobs.end <= 10 ? true : false}
-          >
-            <PaginationLink previous />
-          </PaginationItem>
-          <PaginationItem
-            active={parseInt(this.state.jobs.end / 10) === 1 ? true : false}
-            onClick={() => this.toggleList(10)}
-          >
-            <PaginationLink>1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem
-            active={parseInt(this.state.jobs.end / 10) === 2 ? true : false}
-            onClick={() => this.toggleList(20)}
-          >
-            <PaginationLink>2</PaginationLink>
-          </PaginationItem>
-          <PaginationItem
-            active={parseInt(this.state.jobs.end / 10) === 3 ? true : false}
-            onClick={() => this.toggleList(30)}
-          >
-            <PaginationLink>3</PaginationLink>
-          </PaginationItem>
-          <PaginationItem
-            onClick={() => {
-              if (this.state.jobs.end < 30) {
-                this.setState(prev => {
-                  return {
-                    jobs: {
-                      end: prev.jobs.end + 10
-                    }
-                  };
-                });
-              }
-            }}
-            disabled={this.state.jobs.end === 30 ? true : false}
-          >
-            <PaginationLink next />
-          </PaginationItem>
-        </Pagination>
+        {this.checkSearch().length === 0 && this.state.search ? (
+          <h4>No jobs are present according to your criteria</h4>
+        ) : (
+          ""
+        )}
+
+        {this.state.search ? (
+          //This will render the respective searched list
+          this.checkSearch().map((job, i) => {
+            return <JobsList key={i} job={job} id={i} />;
+          })
+        ) : (
+          <Pagination>
+            <PaginationItem
+              onClick={() => {
+                if (this.state.jobs.end > 10) {
+                  this.setState(prev => ({
+                    jobs: { end: prev.jobs.end - 10 }
+                  }));
+                }
+              }}
+              disabled={this.state.jobs.end <= 10 ? true : false}
+            >
+              <PaginationLink previous />
+            </PaginationItem>
+            <PaginationItem
+              active={parseInt(this.state.jobs.end / 10) === 1 ? true : false}
+              onClick={() => this.toggleList(10)}
+            >
+              <PaginationLink>1</PaginationLink>
+            </PaginationItem>
+            <PaginationItem
+              active={parseInt(this.state.jobs.end / 10) === 2 ? true : false}
+              onClick={() => this.toggleList(20)}
+            >
+              <PaginationLink>2</PaginationLink>
+            </PaginationItem>
+            <PaginationItem
+              active={parseInt(this.state.jobs.end / 10) === 3 ? true : false}
+              onClick={() => this.toggleList(30)}
+            >
+              <PaginationLink>3</PaginationLink>
+            </PaginationItem>
+            <PaginationItem
+              onClick={() => {
+                if (this.state.jobs.end < 30) {
+                  this.setState(prev => {
+                    return {
+                      jobs: {
+                        end: prev.jobs.end + 10
+                      }
+                    };
+                  });
+                }
+              }}
+              disabled={this.state.jobs.end === 30 ? true : false}
+            >
+              <PaginationLink next />
+            </PaginationItem>
+          </Pagination>
+        )}
       </Col>
     );
   }

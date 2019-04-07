@@ -9,11 +9,12 @@ import {
 
 import { Card, CardText, CardTitle, CardSubtitle } from "reactstrap";
 
-// const renderHTML = (id, desc) => {
-//   const ele = document.querySelector(`#${id}`);
-//   ele.innerHTML = desc;
-//   //   console.log(ele);
-// };
+const renderHTML = (id, desc) => {
+  desc = desc.substring(0, 300) + ".....";
+  const ele = document.querySelector(`#${id}`);
+  ele.innerHTML = desc;
+  //   console.log(ele);
+};
 
 //Making a temporary stack
 class Stack {
@@ -35,7 +36,7 @@ class Stack {
   }
 }
 
-const parseDesc = desc => {
+const parseDesc = (id, desc) => {
   const stack = new Stack();
   let newDesc = "";
   desc = desc.split("");
@@ -53,8 +54,9 @@ const parseDesc = desc => {
       }
     }
   }
-
-  return newDesc;
+  setTimeout(() => {
+    renderHTML(id, newDesc);
+  }, 100);
 };
 
 const JobsList = props => {
@@ -87,7 +89,7 @@ const JobsList = props => {
           //       props.job.job_description.substring(0, 10000)
           //     );
           //   }, 10)
-          parseDesc(props.job.job_description).substring(0, 350) + "....."}
+          parseDesc(`desc${props.id}`, props.job.job_description)}
         </span>
       </CardText>
       <hr />
