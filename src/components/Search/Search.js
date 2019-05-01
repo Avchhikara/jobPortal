@@ -38,9 +38,7 @@ class Search extends React.Component {
         location: newSstr["location"]
           ? decodeURIComponent(newSstr["location"])
           : "",
-        salary: newSstr["salary"]
-          ? decodeURIComponent(newSstr["location"])
-          : "",
+        salary: newSstr["salary"] ? decodeURIComponent(newSstr["salary"]) : "",
         experience: newSstr["experience"]
           ? decodeURIComponent(newSstr["experience"])
           : ""
